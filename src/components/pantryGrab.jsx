@@ -9,6 +9,7 @@ export default class pantryGrab extends Component {
         this.state = {
             redirect: false,
             url: null,
+            ingredients: ["", "", "", "", ""],
             ingredient1: '',
             // progress: 0,
             ingredient2: '',
@@ -34,26 +35,35 @@ export default class pantryGrab extends Component {
 
     myChangeHandler = (e) => {
         const { value, name } = e.target;
+        let newArray = this.state.ingredients;
+        newArray[parseInt(name)] = value;
         this.setState({
-            [name]: value
+            ingredients: newArray
         })
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault();
-        let ingredients = [];
-        for(let i=1; i<6; i++){
-            let ingredient = this.state.ingredient+i;
+        // let ingredients = [];
+        let ingredients = "";
+        let finalIngredients = "";
+        for(let i=0; i<5; i++){
+            let ingredient = this.state.ingredients[i];
+            console.log(ingredient)
             if(ingredient != "")
             {
-                ingredients += ingredient;
+                ingredients += `${ingredient},+`;
             }
             else
             {
                 continue;
             }
         }
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${this.state.ingredient1}generate?apiKey=af2bd30b44424d368d723beb5ca12fce&`,
+        finalIngredients = ingredients.substring(ingredients[0], ingredients.length - 2)
+        // ingredients.substring()
+        console.log(finalIngredients)
+        this.setState({ ingredients: ingredients})
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${this.state.ingredients}generate?apiKey=af2bd30b44424d368d723beb5ca12fce&`,
             {
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
@@ -72,12 +82,15 @@ export default class pantryGrab extends Component {
             <div>
                 <h2 className="pantryHeader">enter your ingredients</h2>
                 <div>
-                    <input name="ingredient1" onChange={this.myChangeHandler} defaultValue="ingredient1"></input>
-                    <input name="ingredient2" onChange={this.myChangeHandler} defaultValue="ingredient2"></input>
-                    <input name="ingredient3" onChange={this.myChangeHandler} defaultValue="ingredient3"></input>
-                    <input name="ingredient4" onChange={this.myChangeHandler} defaultValue="ingredient4"></input>
-                    <input name="ingredient5" onChange={this.myChangeHandler} defaultValue="ingredient5"></input>
+                    <input name="0" onChange={this.myChangeHandler} defaultValue="ingredient1"></input>
+                    <input name="1" onChange={this.myChangeHandler} defaultValue="ingredient2"></input>
+                    <input name="2" onChange={this.myChangeHandler} defaultValue="ingredient3"></input>
+                    <input name="3" onChange={this.myChangeHandler} defaultValue="ingredient4"></input>
+                    <input name="4" onChange={this.myChangeHandler} defaultValue="ingredient5"></input>
                     <Button onClick={this.handleFormSubmit}>Find Recipe</Button>
+                </div>
+                <div className="recipeList">
+
                 </div>
             </div>
         )
