@@ -2,8 +2,9 @@ import React, { Component, useState, useEffect } from 'react'
 import "./../App.css";
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
-import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
+// import BootstrapTable from 'react-bootstrap-table-next';
+// import paginationFactory from 'react-bootstrap-table2-paginator';
+// import * as ReactBootstrap from 'react-bootstrap';
 
 export default class pantryGrab extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ export default class pantryGrab extends Component {
         // let ingredients = [];
         console.log(this.state.ingredientList)
         // axios.get('https://api.spoonacular.com/recipes/716429/information?apiKey=af2bd30b44424d368d723beb5ca12fce&includeNutrition=true')
-        axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=af2bd30b44424d368d723beb5ca12fce&ingredients=${this.state.ingredientList}`)
+        axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=af2bd30b44424d368d723beb5ca12fce&ingredients=${this.state.ingredientList}&number=10`)
                 .then(res =>
                     this.setState({ recipes: res.data })    
                 )
@@ -77,32 +78,66 @@ export default class pantryGrab extends Component {
     }
 
     render() {
-        const columns = [
-            { dataField: "title", text: '' },
-            { dataField: "image", text: '' },
-            { dataField: "missedIngredientCount", text: '' },
-        ]
+        // const columns = [
+        //     { dataField: "title", text: '' },
+        //     { dataField: "image", text: '' },
+        //     { dataField: "missedIngredientCount", text: '' },
+        // ]
+        const container = {
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center'
+        }
+        const outerCard = {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '10px',
+            border: 'solid 2px black',
+            width: '30%',
+            margin: '10px',
+            backgroundColor: 'rgba(189, 232, 234)' 
+        }
+        const innerCard = {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '10px',
+            border: 'solid 2px black',
+            width: '90%',
+            margin: '10px',
+            backgroundColor: 'white'
+        }
         return (
             <div>
-                <h2 className="pantryHeader">enter your ingredients</h2>
+                <h1 className="pantryHeader">Enter your ingredients</h1>
                 <div>
-                    <input name="0" onChange={this.myChangeHandler} defaultValue="ingredient1"></input>
-                    <input name="1" onChange={this.myChangeHandler} defaultValue="ingredient2"></input>
-                    <input name="2" onChange={this.myChangeHandler} defaultValue="ingredient3"></input>
-                    <input name="3" onChange={this.myChangeHandler} defaultValue="ingredient4"></input>
-                    <input name="4" onChange={this.myChangeHandler} defaultValue="ingredient5"></input>
+                    <input name="0" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
+                    <input name="1" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
+                    <input name="2" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
+                    <input name="3" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
+                    <input name="4" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
                     <Button onClick={this.handleFormSubmit}>Find Recipe</Button>
                 </div>
-                <div className="recipeList">
-                    <div className="tables">
-                        <BootstrapTable
-                            keyField="name"
-                            data={this.state.ingredients}
-                            columns={columns}
-                            pagination={paginationFactory()}
-                        />
+            <div style={container}>
+                { this.state.recipes.map(recipe => {
+                return (
+                    <div key={recipe.id} style={outerCard} >
+                    <h1>{ recipe.title }</h1>
+                    <div style={innerCard}>
+                        <img src={recipe.image}></img>
+                        <p className="pText">Missing Ingredients: {recipe.missedIngredientCount } { recipe.missedIngredients.map(ingredient => {
+                return (
+                    <p>{ ingredient.name }</p>
+                )
+                })}</p>
                     </div>
-                </div>
+                    </div>
+                )
+                })}
+            </div>
             </div>
         )
     }
