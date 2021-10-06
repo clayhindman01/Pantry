@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import "./../App.css";
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 export default class pantryGrab extends Component {
     constructor(props) {
@@ -10,13 +12,7 @@ export default class pantryGrab extends Component {
             redirect: false,
             url: null,
             ingredients: ["", "", "", "", ""],
-            ingredient1: '',
-            // progress: 0,
-            ingredient2: '',
-            ingredient3: '',
-            ingredient4: '',
-            ingredient5: '',
-            ingredient6: '',
+            ingredientList: '',
             recipes: [],
             id: 1,
         }
@@ -34,20 +30,18 @@ export default class pantryGrab extends Component {
     }
 
     myChangeHandler = (e) => {
+        //handles state change in input fields
         const { value, name } = e.target;
         let newArray = this.state.ingredients;
         newArray[parseInt(name)] = value;
         this.setState({
             ingredients: newArray
         })
-    }
-
-    handleFormSubmit = (e) => {
-        e.preventDefault();
-        // let ingredients = [];
+        // handles state change for finished ingredient list based on input fields
         let ingredients = "";
         let finalIngredients = "";
-        for(let i=0; i<5; i++){
+        for(let i=0; i<5; i++)
+        {
             let ingredient = this.state.ingredients[i];
             console.log(ingredient)
             if(ingredient != "")
@@ -58,26 +52,36 @@ export default class pantryGrab extends Component {
             {
                 continue;
             }
+            finalIngredients = ingredients.substring(ingredients[0], ingredients.length - 2)
+            // ingredients.substring()
+            console.log(finalIngredients)
         }
-        finalIngredients = ingredients.substring(ingredients[0], ingredients.length - 2)
-        // ingredients.substring()
-        console.log(finalIngredients)
-        this.setState({ ingredients: ingredients})
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${this.state.ingredients}generate?apiKey=af2bd30b44424d368d723beb5ca12fce&`,
-            {
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8'
-                },
-            })
-            .then(res =>
-                res.json()
+        this.setState({ ingredientList: finalIngredients})
+    }
+    componentDidUpdate() {
+        
+    }
+    handleFormSubmit = (e) => {
+        e.preventDefault()
+        // let ingredients = [];
+        console.log(this.state.ingredientList)
+        // axios.get('https://api.spoonacular.com/recipes/716429/information?apiKey=af2bd30b44424d368d723beb5ca12fce&includeNutrition=true')
+        axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=af2bd30b44424d368d723beb5ca12fce&ingredients=${this.state.ingredientList}`)
+                .then(res =>
+                    this.setState({ recipes: res.data })    
+                )
+                .then(res =>
+                    console.log(this.state.recipes)
             )
-            .then(res =>
-                this.setState({ recipes: res.data })    
-            )
+        
     }
 
     render() {
+        const columns = [
+            { dataField: "title", text: '' },
+            { dataField: "image", text: '' },
+            { dataField: "missedIngredientCount", text: '' },
+        ]
         return (
             <div>
                 <h2 className="pantryHeader">enter your ingredients</h2>
@@ -90,7 +94,14 @@ export default class pantryGrab extends Component {
                     <Button onClick={this.handleFormSubmit}>Find Recipe</Button>
                 </div>
                 <div className="recipeList">
-
+                    <div className="tables">
+                        <BootstrapTable
+                            keyField="name"
+                            data={this.state.ingredients}
+                            columns={columns}
+                            pagination={paginationFactory()}
+                        />
+                    </div>
                 </div>
             </div>
         )
