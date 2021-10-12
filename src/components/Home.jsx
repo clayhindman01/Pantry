@@ -12,10 +12,16 @@ export default class Home extends Component {
                             <div className="leftColumn">
                             </div>
                             <div className="rightColumn">
-                                <ul>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
+                                <ul className="outerList">
+                                    <li className="list1">
+                                        <h4 className="listText">Find Recipes</h4>
+                                    </li>
+                                    <li className="list2">
+                                        <h4 className="listText">Use items in your pantry</h4>
+                                    </li>
+                                    <li className="list1">
+                                        <h4 className="listText">Save your favorite recipes</h4>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
