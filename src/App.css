@@ -1,5 +1,22 @@
+.heroCover {
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.heroCont {
+  height: 50vh;
+  background-image: url('./Veggies.png');
+}
 
+.leftColumn {
+  width: 60%;
+}
+.rightColumn {
+  width: 40%;
+}
 .pantryHeader {
   color: black;
 }
