@@ -27,7 +27,7 @@ export default function Header(props) {
                 <div className="logoCont"><Link to=''><img src="../pantry-icon2.png" className="logo" /><img src="../../pantry-icon2.png" className="logo2"></img></Link></div>
                
                 <div className="linkCont">
-                    <Link to='portfolio' className="smallLinkCont">
+                    <Link to='/' className="smallLinkCont">
                         <div>
                             <h3 className="headerLink">Home</h3>
                         </div>
