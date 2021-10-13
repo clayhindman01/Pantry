@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react'
-import "./../App.css";
+import "./pantryGrab.css"
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 // import BootstrapTable from 'react-bootstrap-table-next';
@@ -41,7 +41,7 @@ export default class pantryGrab extends Component {
         // handles state change for finished ingredient list based on input fields
         let ingredients = "";
         let finalIngredients = "";
-        for(let i=0; i<5; i++)
+        for(let i=0; i<6; i++)
         {
             let ingredient = this.state.ingredients[i];
             console.log(ingredient)
@@ -83,51 +83,26 @@ export default class pantryGrab extends Component {
         //     { dataField: "image", text: '' },
         //     { dataField: "missedIngredientCount", text: '' },
         // ]
-        const container = {
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center'
-        }
-        const outerCard = {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '10px',
-            border: 'solid 2px black',
-            width: '30%',
-            margin: '10px',
-            backgroundColor: 'rgba(189, 232, 234)' 
-        }
-        const innerCard = {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '10px',
-            border: 'solid 2px black',
-            width: '90%',
-            margin: '10px',
-            backgroundColor: 'white'
-        }
+        
         return (
             <div>
                 <h1 className="pantryHeader">Enter your ingredients</h1>
-                <div>
-                    <input name="0" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
-                    <input name="1" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
-                    <input name="2" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
-                    <input name="3" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
-                    <input name="4" onChange={this.myChangeHandler} defaultValue="ingredient"></input>
+                <ul>
+                    <li><input name="0" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
+                    <li><input name="1" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
+                    <li><input name="2" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
+                    <li><input name="3" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
+                    <li><input name="4" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
+                    <li><input name="5" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
                     <Button onClick={this.handleFormSubmit}>Find Recipe</Button>
-                </div>
-            <div style={container}>
+                </ul>
+            <div className="pantry-container">
                 { this.state.recipes.map(recipe => {
                 return (
-                    <div key={recipe.id} style={outerCard} >
+                    <div key={recipe.id} className="outerCard">
                     <h1>{ recipe.title }</h1>
-                    <div style={innerCard}>
-                        <img src={recipe.image}></img>
+                    <div className="innerCard">
+                        <img src={recipe.image} className="innerImg"></img>
                         <p className="pText">Missing Ingredients: {recipe.missedIngredientCount } { recipe.missedIngredients.map(ingredient => {
                 return (
                     <p>{ ingredient.name }</p>
