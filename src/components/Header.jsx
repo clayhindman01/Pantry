@@ -42,6 +42,11 @@ export default function Header(props) {
                             <h3 className="headerLink">My Pantry</h3>
                         </div>
                     </Link>
+                    <Link to='portfolio' className="smallLinkCont">
+                        <div>
+                            <h3 className="headerLink">Login</h3>
+                        </div>
+                    </Link>
                 </div>
                 <div className="drop">
                     <button className="dropDownButton" onClick={onClick}><div class="bar1"></div>
