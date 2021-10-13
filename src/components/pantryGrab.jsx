@@ -86,33 +86,44 @@ export default class pantryGrab extends Component {
         
         return (
             <div>
-                <h1 className="pantryHeader">Enter your ingredients</h1>
-                <ul>
-                    <li><input name="0" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
-                    <li><input name="1" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
-                    <li><input name="2" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
-                    <li><input name="3" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
-                    <li><input name="4" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
-                    <li><input name="5" onChange={this.myChangeHandler} defaultValue="ingredient"></input></li>
-                    <Button onClick={this.handleFormSubmit}>Find Recipe</Button>
-                </ul>
-            <div className="pantry-container">
-                { this.state.recipes.map(recipe => {
-                return (
-                    <div key={recipe.id} className="outerCard">
-                    <h1>{ recipe.title }</h1>
-                    <div className="innerCard">
-                        <img src={recipe.image} className="innerImg"></img>
-                        <p className="pText">Missing Ingredients: {recipe.missedIngredientCount } { recipe.missedIngredients.map(ingredient => {
-                return (
-                    <p>{ ingredient.name }</p>
-                )
-                })}</p>
+                <div className="main-cont">
+                    <div className="selection-container">
+                        <div className="pantryHeader-cont">
+                            <h3 className="pantryHeader">Quick Search</h3>
+                            <p className="pantry-h-text">Enter a few ingredients to get a short list of recipes</p>
+                        </div>
+                        <div className="list-holder">
+                            <ul className="selection-List">
+                                <li className="list-piece"><input name="0" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                <li className="list-piece"><input name="1" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                <li className="list-piece"><input name="2" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                            </ul>
+                            <ul className="selection-List">
+                                <li className="list-piece"><input name="3" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                <li className="list-piece"><input name="4" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                <li className="list-piece"><input name="5" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                            </ul>
+                        </div>
+                        <button onClick={this.handleFormSubmit} className="submit">FIND RECIPES</button>
                     </div>
-                    </div>
-                )
-                })}
-            </div>
+                </div>
+                <div className="pantry-container">
+                    { this.state.recipes.map(recipe => {
+                    return (
+                        <div key={recipe.id} className="outerCard">
+                        <h1>{ recipe.title }</h1>
+                        <div className="innerCard">
+                            <img src={recipe.image} className="innerImg"></img>
+                            <p className="pText">Missing Ingredients: {recipe.missedIngredientCount } { recipe.missedIngredients.map(ingredient => {
+                    return (
+                        <p>{ ingredient.name }</p>
+                    )
+                    })}</p>
+                        </div>
+                        </div>
+                    )
+                    })}
+                </div>
             </div>
         )
     }
