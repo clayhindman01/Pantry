@@ -111,14 +111,20 @@ export default class pantryGrab extends Component {
                     { this.state.recipes.map(recipe => {
                     return (
                         <div key={recipe.id} className="outerCard">
-                        <h1>{ recipe.title }</h1>
                         <div className="innerCard">
                             <img src={recipe.image} className="innerImg"></img>
-                            <p className="pText">Missing Ingredients: {recipe.missedIngredientCount } { recipe.missedIngredients.map(ingredient => {
-                    return (
-                        <p>{ ingredient.name }</p>
-                    )
-                    })}</p>
+                            <div className="textBox">
+                                <h3>{ recipe.title }</h3>
+                            </div>
+                            <div className="textBox">
+                                <p className="pText">Missing Ingredients: {recipe.missedIngredientCount } { recipe.missedIngredients.map(ingredient => {
+                                    return (
+                                        <div className="textBox">
+                                            <p>{ ingredient.name }</p>
+                                        </div>
+                                    )
+                                    })}</p>
+                            </div>
                         </div>
                         </div>
                     )
