@@ -1,4 +1,24 @@
+.heroCover {
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.heroCont {
+  height: 50vh;
+  background-image: url('./Veggies.png');
+  box-shadow: 10px 2px 10px rgb(221, 221, 221);
+}
+
+.leftColumn {
+  width: 60%;
+}
+
+.rightColumn {
+  width: 40%;
+}
 
 .pantryHeader {
   color: black;
@@ -6,4 +26,52 @@
 
 .pText {
   color: black;
+}
+
+.outerList {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 65%;
+}
+
+.list1 {
+  display: flex;
+  justify-content: Center;
+  align-items: center;
+  border: solid white 1px;
+  border-radius: 8px;
+  width: 90%;
+  margin: 10px 0px 10px 0px;
+  background-color: #9BC78E;
+  box-shadow: 0px 5px 10px 0px rgb(184, 182, 182);
+  transition: 200ms;
+}
+
+.list1:hover, .list2:hover {
+  display: flex;
+  justify-content: Center;
+  align-items: center;
+  border: solid white 1px;
+  border-radius: 8px;
+  margin: 0px 0px 5px 20px;
+  box-shadow: -5px 10px 8px 0px rgb(119, 119, 119);
+  cursor: pointer;
+}
+
+.list2 {
+  display: flex;
+  justify-content: Center;
+  align-items: center;
+  border: solid white 1px;
+  border-radius: 8px;
+  width: 90%;
+  margin: 10px 0px 10px 0px;
+  background-color: #31412C;
+  box-shadow: 0px 5px 10px 0px rgb(184, 182, 182);
+  transition: 200ms;
+}
+.listText {
+  padding: 30px;
+  color: white;
 }

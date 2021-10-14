@@ -25,25 +25,26 @@ export default function Header(props) {
         <div className="headerMain">
             <div className="header" onClick={checkOpen}>
                 <div className="logoCont"><Link to=''><img src="../pantry-icon2.png" className="logo" /><img src="../../pantry-icon2.png" className="logo2"></img></Link></div>
+               
                 <div className="linkCont">
-                    <Link to='portfolio' className="smallLinkCont">
+                    <Link to='/' className="smallLinkCont">
                         <div>
-                            <h3 className="headerLink">Portfolio</h3>
+                            <h3 className="headerLink">Home</h3>
                         </div>
                     </Link>
                     <Link to='' className="smallLinkCont">
                         <div>
-                            <h3 className="headerLink">Products</h3>
+                            <h3 className="headerLink">Saved Recipes</h3>
                         </div>
                     </Link>
                     <Link to='portfolio' className="smallLinkCont">
                         <div>
-                            <h3 className="headerLink">About Me</h3>
+                            <h3 className="headerLink">My Pantry</h3>
                         </div>
                     </Link>
-                    <Link to='contact' className="smallLinkCont">
+                    <Link to='portfolio' className="smallLinkCont">
                         <div>
-                            <h3 className="headerLink">Contact Me</h3>
+                            <h3 className="headerLink">Login</h3>
                         </div>
                     </Link>
                 </div>
