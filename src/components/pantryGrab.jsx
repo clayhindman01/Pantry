@@ -1,7 +1,7 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { Component } from 'react'
 import "./pantryGrab.css"
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
+//import { Button } from 'react-bootstrap';
 // import BootstrapTable from 'react-bootstrap-table-next';
 // import paginationFactory from 'react-bootstrap-table2-paginator';
 // import * as ReactBootstrap from 'react-bootstrap';
@@ -54,7 +54,6 @@ export default class pantryGrab extends Component {
                 continue;
             }
             finalIngredients = ingredients.substring(ingredients[0], ingredients.length - 2)
-            // ingredients.substring()
             console.log(finalIngredients)
         }
         this.setState({ ingredientList: finalIngredients})
@@ -64,7 +63,6 @@ export default class pantryGrab extends Component {
     }
     handleFormSubmit = (e) => {
         e.preventDefault()
-        // let ingredients = [];
         console.log(this.state.ingredientList)
         // axios.get('https://api.spoonacular.com/recipes/716429/information?apiKey=af2bd30b44424d368d723beb5ca12fce&includeNutrition=true')
         axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=af2bd30b44424d368d723beb5ca12fce&ingredients=${this.state.ingredientList}&number=10`)
@@ -72,9 +70,8 @@ export default class pantryGrab extends Component {
                     this.setState({ recipes: res.data })    
                 )
                 .then(res =>
-                    console.log(this.state.recipes)
+                    console.log(this.state.recipes.map((item) => item.title))
             )
-        
     }
 
     render() {
@@ -108,7 +105,7 @@ export default class pantryGrab extends Component {
                     </div>
                 </div>
                 <div className="pantry-container">
-                    { this.state.recipes.map(recipe => {
+                    {/* { this.state.recipes.map(recipe => {
                     return (
                         <div key={recipe.id} className="outerCard">
                         <div className="innerCard">
@@ -128,7 +125,26 @@ export default class pantryGrab extends Component {
                         </div>
                         </div>
                     )
-                    })}
+                    })} */}
+                    {this.state.recipes.map((item) => (
+                        <div key={item.id} className="outerCard">
+                        <div className="innerCard">
+                            <img src={item.image} className="innerImg"></img>
+                            <div className="textBox">
+                                <h3>{ item.title }</h3>
+                            </div>
+                            <div className="textBox">
+                                <p className="pText">Missing Ingredients: {item.missedIngredientCount } { item.missedIngredients.map(ingredient => {
+                                    return (
+                                        <div className="textBox">
+                                            <p>{ ingredient.name }</p>
+                                        </div>
+                                    )
+                                    })}</p>
+                            </div>
+                        </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         )
