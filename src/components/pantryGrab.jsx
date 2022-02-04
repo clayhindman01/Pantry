@@ -70,7 +70,7 @@ export default class pantryGrab extends Component {
                     this.setState({ recipes: res.data })    
                 )
                 .then(res =>
-                    console.log(this.state.recipes.map((item) => item.title))
+                    console.log(this.state.recipes.map((item) => item))
             )
     }
 
@@ -105,27 +105,6 @@ export default class pantryGrab extends Component {
                     </div>
                 </div>
                 <div className="pantry-container">
-                    {/* { this.state.recipes.map(recipe => {
-                    return (
-                        <div key={recipe.id} className="outerCard">
-                        <div className="innerCard">
-                            <img src={recipe.image} className="innerImg"></img>
-                            <div className="textBox">
-                                <h3>{ recipe.title }</h3>
-                            </div>
-                            <div className="textBox">
-                                <p className="pText">Missing Ingredients: {recipe.missedIngredientCount } { recipe.missedIngredients.map(ingredient => {
-                                    return (
-                                        <div className="textBox">
-                                            <p>{ ingredient.name }</p>
-                                        </div>
-                                    )
-                                    })}</p>
-                            </div>
-                        </div>
-                        </div>
-                    )
-                    })} */}
                     {this.state.recipes.map((item) => (
                         <div key={item.id} className="outerCard">
                         <div className="innerCard">
