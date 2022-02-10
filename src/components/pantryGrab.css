@@ -59,6 +59,16 @@ ul {
     padding: 10px 10px 10px 10px;
     background-color: #6E9A61;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .pantry-h-text {

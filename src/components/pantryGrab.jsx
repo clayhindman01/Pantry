@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import "./pantryGrab.css"
 import axios from 'axios';
+import RecipeView from './recipeView';
 //import { Button } from 'react-bootstrap';
 // import BootstrapTable from 'react-bootstrap-table-next';
 // import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -17,10 +18,6 @@ export default class pantryGrab extends Component {
             recipes: [],
             id: 1,
         }
-        // this.handleChange = this
-        //     .handleChange
-        //     .bind(this);
-        // this.handleUpload = this.handleUpload.bind(this);
     }
 
     handleChange = e => {
@@ -63,9 +60,7 @@ export default class pantryGrab extends Component {
     }
     handleFormSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state.ingredientList)
-        // axios.get('https://api.spoonacular.com/recipes/716429/information?apiKey=af2bd30b44424d368d723beb5ca12fce&includeNutrition=true')
-        axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=af2bd30b44424d368d723beb5ca12fce&ingredients=${this.state.ingredientList}&number=10`)
+        axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=af2bd30b44424d368d723beb5ca12fce&ingredients=${this.state.ingredientList}&number=12`)
                 .then(res =>
                     this.setState({ recipes: res.data })    
                 )
@@ -89,19 +84,21 @@ export default class pantryGrab extends Component {
                             <h3 className="pantryHeader">Quick Search</h3>
                             <p className="pantry-h-text">Enter a few ingredients to get a short list of recipes</p>
                         </div>
-                        <div className="list-holder">
-                            <ul className="selection-List">
-                                <li className="list-piece"><input name="0" onChange={this.myChangeHandler} defaultValue=""></input></li>
-                                <li className="list-piece"><input name="1" onChange={this.myChangeHandler} defaultValue=""></input></li>
-                                <li className="list-piece"><input name="2" onChange={this.myChangeHandler} defaultValue=""></input></li>
-                            </ul>
-                            <ul className="selection-List">
-                                <li className="list-piece"><input name="3" onChange={this.myChangeHandler} defaultValue=""></input></li>
-                                <li className="list-piece"><input name="4" onChange={this.myChangeHandler} defaultValue=""></input></li>
-                                <li className="list-piece"><input name="5" onChange={this.myChangeHandler} defaultValue=""></input></li>
-                            </ul>
-                        </div>
-                        <button onClick={this.handleFormSubmit} className="submit">FIND RECIPES</button>
+                        <form onSubmit={this.handleFormSubmit}>
+                            <div className="list-holder">
+                                <ul className="selection-List">
+                                    <li className="list-piece"><input name="0" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                    <li className="list-piece"><input name="1" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                    <li className="list-piece"><input name="2" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                </ul>
+                                <ul className="selection-List">
+                                    <li className="list-piece"><input name="3" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                    <li className="list-piece"><input name="4" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                    <li className="list-piece"><input name="5" onChange={this.myChangeHandler} defaultValue=""></input></li>
+                                </ul>
+                            </div>
+                            <button className="submit">FIND RECIPES</button>
+                        </form>
                     </div>
                 </div>
                 <div className="pantry-container">
@@ -111,6 +108,7 @@ export default class pantryGrab extends Component {
                             <img src={item.image} className="innerImg"></img>
                             <div className="textBox">
                                 <h3>{ item.title }</h3>
+                                <RecipeView id={item.id}/>  
                             </div>
                             <div className="textBox">
                                 <p className="pText">Missing Ingredients: {item.missedIngredientCount } { item.missedIngredients.map(ingredient => {
