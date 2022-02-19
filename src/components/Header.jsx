@@ -3,6 +3,17 @@ import "./Header.css"
 import { Redirect, Link, withRouter } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+
+firebase.initializeApp({
+    apiKey: "AIzaSyBfLNHHS9B5fci_fdPV4Ie7-Vbmim2IWeQ",
+    authDomain: "pantry-9f73f.firebaseapp.com",
+    projectId: "pantry-9f73f",
+    storageBucket: "pantry-9f73f.appspot.com",
+    messagingSenderId: "382840381565",
+    appId: "1:382840381565:web:75f295fb1db7dcca01d114",
+    measurementId: "G-0PVX6XCYS2"
+})
 
 const auth = firebase.auth();
 
@@ -30,12 +41,15 @@ export default function Header(props) {
     const [ user ] = useAuthState(auth)
 
     const logOut = () => {
-        auth.signOut()
+        if (window.confirm("Do you want to sign out?")) {
+            auth.signOut()
+        }
     }
 
     const logIn = () => {
-        const provider = new firebase.auth.GoogleAuthProvider;
-        auth.signInWithPopup(provider);
+            const provider = new firebase.auth.GoogleAuthProvider;
+
+            auth.signInWithPopup(provider).catch(err => console.error(err));
     }
 
     return (
