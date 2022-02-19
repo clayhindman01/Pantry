@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import "./pantryGrab.css"
 import axios from 'axios';
 import RecipeView from './recipeView';
-import { Redirect, Link, withRouter } from 'react-router-dom';
+import { Redirect, Link, withRouter, useNavigate } from 'react-router-dom';
 //import { Button } from 'react-bootstrap';
 // import BootstrapTable from 'react-bootstrap-table-next';
 // import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -18,6 +18,8 @@ export default class pantryGrab extends Component {
             ingredientList: '',
             recipes: [],
             id: 1,
+            popUpHide: true,
+            popUpClass: "popUpDivHide"
         }
     }
 
@@ -54,8 +56,8 @@ export default class pantryGrab extends Component {
         }
         this.setState({ ingredientList: finalIngredients })
     }
-    componentDidUpdate() {
-
+    componentDidMount() {
+        this.setState({popUpClass: "popUpDivHide"})
     }
     handleFormSubmit = (e) => {
         e.preventDefault()
@@ -73,6 +75,15 @@ export default class pantryGrab extends Component {
         e.preventDefault()
         console.log(e.target.value);
         console.log("hello");
+        this.setState({id: e.target.value})
+        this.setState({popUpHide: false})
+        if(this.state.popUpHide == false){
+            this.setState({popUpClass: "popUpDivShow"})
+            this.setState({popUpHide: true})
+        }
+        else if(this.state.popUpHide == true){
+            this.setState({popUpClass: "popUpDivHide"})
+        }
         // console.log(item);
     }
 
@@ -110,7 +121,7 @@ export default class pantryGrab extends Component {
                 </div>
                 <div className="pantry-container">
                     {this.state.recipes.map((item) => (
-                            <div key={item.id} className="outerCard" >
+                            <div key={item.id} className="outerCard">
                                 <div className="innerCard">
                                     <img src={item.image} className="innerImg"></img>
                                     <div className="textBox">
@@ -127,6 +138,7 @@ export default class pantryGrab extends Component {
                                         })}</p>
                                     </div>
                                 </div>
+                                <div className={this.state.popUpClass}><h1>Hello</h1><button className="submit" value={item.id} onClick={this.onClick}></button></div>
                                     <button className="submit" value={item.id} onClick={this.onClick}>View</button>
                             </div>
                     ))}

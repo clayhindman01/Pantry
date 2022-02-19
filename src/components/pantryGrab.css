@@ -120,3 +120,15 @@ form {
     margin: 10px;
     background-color: white;
 }
+
+.popUpDivHide {
+    display: none;
+}
+
+.popUpDivShow {
+    display: flex;
+    position: fixed;
+    height: 100vh;
+    top: 100px;
+
+}
