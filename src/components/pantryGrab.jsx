@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import "./pantryGrab.css"
 import axios from 'axios';
 import RecipeView from './recipeView';
+import { Redirect, Link, withRouter } from 'react-router-dom';
 //import { Button } from 'react-bootstrap';
 // import BootstrapTable from 'react-bootstrap-table-next';
 // import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -32,41 +33,47 @@ export default class pantryGrab extends Component {
         const { value, name } = e.target;
         let newArray = this.state.ingredients;
         newArray[parseInt(name)] = value;
+        console.log(name);
         this.setState({
             ingredients: newArray
         })
         // handles state change for finished ingredient list based on input fields
         let ingredients = "";
         let finalIngredients = "";
-        for(let i=0; i<6; i++)
-        {
+        for (let i = 0; i < 6; i++) {
             let ingredient = this.state.ingredients[i];
             console.log(ingredient)
-            if(ingredient != "")
-            {
+            if (ingredient != "") {
                 ingredients += `${ingredient},+`;
             }
-            else
-            {
+            else {
                 continue;
             }
             finalIngredients = ingredients.substring(ingredients[0], ingredients.length - 2)
             console.log(finalIngredients)
         }
-        this.setState({ ingredientList: finalIngredients})
+        this.setState({ ingredientList: finalIngredients })
     }
     componentDidUpdate() {
-        
+
     }
     handleFormSubmit = (e) => {
         e.preventDefault()
         axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=af2bd30b44424d368d723beb5ca12fce&ingredients=${this.state.ingredientList}&number=12`)
-                .then(res =>
-                    this.setState({ recipes: res.data })    
-                )
-                .then(res =>
-                    console.log(this.state.recipes.map((item) => item))
+            .then(res =>
+                this.setState({ recipes: res.data })
             )
+            .then(res =>
+                console.log(this.state.recipes.map((item) => item))
+            )
+    }
+
+    onClick = (e) => {
+        // console.log(e.target.value);
+        e.preventDefault()
+        console.log(e.target.value);
+        console.log("hello");
+        // console.log(item);
     }
 
     render() {
@@ -75,7 +82,7 @@ export default class pantryGrab extends Component {
         //     { dataField: "image", text: '' },
         //     { dataField: "missedIngredientCount", text: '' },
         // ]
-        
+
         return (
             <div>
                 <div className="main-cont">
@@ -103,27 +110,28 @@ export default class pantryGrab extends Component {
                 </div>
                 <div className="pantry-container">
                     {this.state.recipes.map((item) => (
-                        <div key={item.id} className="outerCard">
-                        <div className="innerCard">
-                            <img src={item.image} className="innerImg"></img>
-                            <div className="textBox">
-                                <h3>{ item.title }</h3>
-                                <RecipeView id={item.id}/>  
+                            <div key={item.id} className="outerCard" >
+                                <div className="innerCard">
+                                    <img src={item.image} className="innerImg"></img>
+                                    <div className="textBox">
+                                        <h3>{item.title}</h3>
+                                        <RecipeView id={item.id} />
+                                    </div>
+                                    <div className="textBox">
+                                        <p className="pText">Missing Ingredients: {item.missedIngredientCount} {item.missedIngredients.map(ingredient => {
+                                            return (
+                                                <div className="textBox">
+                                                    <p>{ingredient.name}</p>
+                                                </div>
+                                            )
+                                        })}</p>
+                                    </div>
+                                </div>
+                                    <button className="submit" value={item.id} onClick={this.onClick}>View</button>
                             </div>
-                            <div className="textBox">
-                                <p className="pText">Missing Ingredients: {item.missedIngredientCount } { item.missedIngredients.map(ingredient => {
-                                    return (
-                                        <div className="textBox">
-                                            <p>{ ingredient.name }</p>
-                                        </div>
-                                    )
-                                    })}</p>
-                            </div>
-                        </div>
-                        </div>
                     ))}
-                </div>
+                        </div>
             </div>
-        )
+                )
     }
 }
