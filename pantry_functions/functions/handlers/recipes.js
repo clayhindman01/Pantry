@@ -1,8 +1,7 @@
-const { admin, db } = require("../util/admin");
-const FBAuth = require("../util/fbauth");
+import db from "../util/admin.js";
 
 // Get all the recipes in the recipe collection
-exports.getAllRecipes = (req, res) => {
+getAllRecipes = (req, res) => {
     db.collection("recipes")
         .orderBy("created_at", "desc")
         .get()
@@ -26,7 +25,7 @@ exports.getAllRecipes = (req, res) => {
 
 //TODO: Add user authentication
 // Add a new recipe to the recipe collection
-exports.addRecipe =  (req, res) => {
+module.addRecipe =  (req, res) => {
     if (req.method !== "POST") {
         return res.status(400).json({ error: "Method must be POST" });
     }
@@ -41,6 +40,9 @@ exports.addRecipe =  (req, res) => {
         recipe_name: req.body.recipe_name,
         instructions: req.body.instructions
     }
+
+    console.log(newRecipe);
+
     db.collection('recipes')
         .add(newRecipe)
         .then(doc => {
@@ -51,3 +53,5 @@ exports.addRecipe =  (req, res) => {
             console.error(error)
         })
 }
+
+export { getAllRecipes, addRecipe };
