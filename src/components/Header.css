@@ -187,6 +187,15 @@
     display: flex;
 }
 
+.imgIcon {
+    width: 60%;
+    border-radius: 100%;
+}
+
+.imgIcon:hover {
+    border-radius: 100%;
+}
+
 @media screen and (max-width: 1300px) {
     .logo {
         width: 325px;
