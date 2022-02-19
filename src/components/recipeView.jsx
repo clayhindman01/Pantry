@@ -12,12 +12,19 @@ export default class RecipeView extends React.Component {
         }
     }
 
+    handleClick = e => {
+        axios.get(`https://api.spoonacular.com/recipes/${this.state.id}/analyzedInstructions?apiKey=af2bd30b44424d368d723beb5ca12fce`)
+            .then(res => {
+                console.log(res.data)
+                this.setState({ recipes: res.data[0] })
+            })
+        console.log(this.state.recipes.steps)
+    }
+
     render() {
 
         return (
-            <div>
-                <h1>{ this.state.id }</h1>
-            </div>
+            null
         )
     }
 }
