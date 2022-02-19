@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import "./Header.css"
 import { Redirect, Link, withRouter } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import firebase from 'firebase/compat/app'
+
+const auth = firebase.auth();
 
 export default function Header(props) {
 
@@ -17,10 +21,23 @@ export default function Header(props) {
     }
 
     const checkOpen = () => {
+
         if (dropToggle == "show" && clickedInside == false){
             setDrop("hide");
         }
     }
+
+    const [ user ] = useAuthState(auth)
+
+    const logOut = () => {
+        auth.signOut()
+    }
+
+    const logIn = () => {
+        const provider = new firebase.auth.GoogleAuthProvider;
+        auth.signInWithPopup(provider);
+    }
+
     return (
         <div className="headerMain">
             <div className="header" onClick={checkOpen}>
@@ -42,9 +59,10 @@ export default function Header(props) {
                             <h3 className="headerLink">My Pantry</h3>
                         </div>
                     </Link>
-                    <Link to='login' className="smallLinkCont">
+                    <Link to='' className="smallLinkCont">
                         <div>
-                            <h3 className="headerLink">Login</h3>
+                            {user?  <img className="headerLink imgIcon" onClick={logOut} src={user.photoURL}></img>:  
+                            <h3 className="headerLink" onClick={logIn}>Sign in</h3>}
                         </div>
                     </Link>
                 </div>
