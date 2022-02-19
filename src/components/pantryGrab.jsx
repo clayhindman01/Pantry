@@ -56,8 +56,8 @@ export default class pantryGrab extends Component {
         }
         this.setState({ ingredientList: finalIngredients })
     }
-    componentDidMount() {
-        this.setState({popUpClass: "popUpDivHide"})
+    componentDidUpdate() {
+        // this.setState({popUpClass: "popUpDivHide"})
     }
     handleFormSubmit = (e) => {
         e.preventDefault()
@@ -76,6 +76,19 @@ export default class pantryGrab extends Component {
         console.log(e.target.value);
         console.log("hello");
         this.setState({id: e.target.value})
+        if(this.state.popUpHide == true){
+            this.setState({popUpHide: false}, function stateUpdateComplete() {
+                this.setState({popUpClass: "popUpDivShow"})
+                this.setState({popUpHide: false})
+            }.bind(this));
+        }
+        else if(this.state.popUpHide == false) {
+            this.setState({popUpHide: true}, function stateUpdateComplete() {
+                this.setState({popUpClass: "popUpDivHide"})
+                this.setState({popUpHide: true})
+            }.bind(this));
+        }
+        
         this.setState({popUpHide: false})
         if(this.state.popUpHide == false){
             this.setState({popUpClass: "popUpDivShow"})
