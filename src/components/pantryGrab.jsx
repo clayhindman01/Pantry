@@ -76,26 +76,15 @@ export default class pantryGrab extends Component {
         console.log(e.target.value);
         console.log("hello");
         this.setState({id: e.target.value})
-        if(this.state.popUpHide == true){
-            this.setState({popUpHide: false}, function stateUpdateComplete() {
-                this.setState({popUpClass: "popUpDivShow"})
-                this.setState({popUpHide: false})
-            }.bind(this));
-        }
-        else if(this.state.popUpHide == false) {
-            this.setState({popUpHide: true}, function stateUpdateComplete() {
-                this.setState({popUpClass: "popUpDivHide"})
-                this.setState({popUpHide: true})
-            }.bind(this));
-        }
-        
-        this.setState({popUpHide: false})
-        if(this.state.popUpHide == false){
+        if(this.state.popUpHide == true)
+        {
             this.setState({popUpClass: "popUpDivShow"})
-            this.setState({popUpHide: true})
+            this.setState({popUpHide: false})
         }
-        else if(this.state.popUpHide == true){
+        else if(this.state.popUpHide == false)
+        {
             this.setState({popUpClass: "popUpDivHide"})
+            this.setState({popUpHide: true})
         }
         // console.log(item);
     }
@@ -139,7 +128,7 @@ export default class pantryGrab extends Component {
                                     <img src={item.image} className="innerImg"></img>
                                     <div className="textBox">
                                         <h3>{item.title}</h3>
-                                        <RecipeView id={item.id} />
+                                        {/* <RecipeView id={item.id} /> */}
                                     </div>
                                     <div className="textBox">
                                         <p className="pText">Missing Ingredients: {item.missedIngredientCount} {item.missedIngredients.map(ingredient => {
@@ -151,12 +140,12 @@ export default class pantryGrab extends Component {
                                         })}</p>
                                     </div>
                                 </div>
-                                <div className={this.state.popUpClass}><h1>Hello</h1><button className="submit" value={item.id} onClick={this.onClick}></button></div>
-                                    <button className="submit" value={item.id} onClick={this.onClick}>View</button>
+                                <button className="submit" value={item.id} onClick={this.onClick}>View</button>
                             </div>
                     ))}
+                    <RecipeView  recipe={this.state.recipes[this.state.id]} hide={this.state.popUpHide} popClass={this.state.popUpClass}/>
                         </div>
             </div>
                 )
     }
-}
+} 
