@@ -76,7 +76,16 @@ export default class pantryGrab extends Component {
         console.log(e.target.value);
         console.log("hello");
         this.setState({id: e.target.value})
-        this.setState({popUpClass: "popUpDivShow"})
+        if(this.state.popUpHide == false)
+        {
+            this.setState({popUpClass: "popUpDivShow"})
+            this.setState({popUpHide: true})
+        }
+        else if(this.state.popUpHide == true)
+        {
+            this.setState({popUpClass: "popUpDivHide"})
+            this.setState({popUpHide: false})
+        }
         
 
         // console.log(item);
@@ -133,10 +142,10 @@ export default class pantryGrab extends Component {
                                         })}</p>
                                     </div>
                                 </div>
-                                <RecipeView  recipe={this.state.recipes[this.state.id]} hide={this.state.popUpHide} popClass={this.state.popUpClass}/>
                                 <button className="submit" value={item.id} onClick={this.onClick}>View</button>
                             </div>
                     ))}
+                    <RecipeView  recipe={this.state.recipes[this.state.id]} hide={this.state.popUpHide} popClass={this.state.popUpClass}/>
                         </div>
             </div>
                 )

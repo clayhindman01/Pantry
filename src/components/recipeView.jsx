@@ -11,6 +11,7 @@ export default class RecipeView extends React.Component {
             recipe: this.props.recipes,
             // recipe: this.props.recipe.title,
             popClass: this.props.popClass,
+            popClassCheck: false,
             hide: this.props.hide
         }
     }
@@ -24,40 +25,39 @@ export default class RecipeView extends React.Component {
     //     console.log(this.state.recipes.steps)
     // }\
     componentDidMount() {
-        this.setState({popUpClass: this.props.recipe.popUpClass})
+        this.setState({popClass: "popUpDivShow"})
         console.log(this.state)
-    }    
-    
+    }
+
     componentDidUpdate() {
-        if(this.props.popClass != this.state.popClass)
-        {
-            // this.setState({popUpClass: this.props.recipe.popUpClass})
-            if(this.state.hide == true){
-                this.setState({hide: false})
-                this.setState({popClass: "popUpDivShow"})
-                
-            }
-            else if(this.state.popUpHide == false) {
-                    this.setState({popClass: "popUpDivHide"})
-                    this.setState({hide: true})
-            
-            }
-        }
+      
     }
     onClick = (e) => {
         // console.log(e.target.value);
         e.preventDefault()
-        console.log("hello");
+        // console.log("hello");
         console.log(this.state.hide)
-        if(this.state.popUpHide == true){
-            this.setState({hide: false}, function stateUpdateComplete() {
-                this.setState({popClass: "popUpDivShow"})
-            }.bind(this));
+        console.log(this.state.popClassCheck)
+        if (this.props.hide !== this.state.popClassCheck) {
+            // this.setState({popUpClass: this.props.recipe.popUpClass})
+            if (this.state.popClassCheck == false) {
+                this.setState({ hide: false }, function stateUpdateComplete() {
+                this.setState({ popClassCheck: true })
+                }.bind(this));
+            }
+            else if (this.state.popClassCheck == true) {
+                this.setState({ hide: true }, function stateUpdateComplete() {
+                    this.setState({ popClassCheck: false })
+                }.bind(this));
+
+                this.setState({ popClassCheck: this.state.hide })
+            }
         }
-        else if(this.state.hide == false) {
-            this.setState({hide: true}, function stateUpdateComplete() {
-                this.setState({popClass: "popUpDivHide"})
-            }.bind(this));
+        if(this.state.hide === true) {
+            this.setState({popClass: "popUpDivHide"})
+        }
+        else if(this.state.hide !== true) {
+            this.setState({popClass: "popUpDivShow"})
         }
     }
     render() {
@@ -65,7 +65,7 @@ export default class RecipeView extends React.Component {
         return (
             <div className={this.state.popClass}>
                 {/* <h1>Hello</h1> */}
-                                <button className="submit"  onClick={this.onClick}>{this.state.recipe}</button>
+                <button className="submit" onClick={this.onClick}>{this.state.recipe}</button>
             </div>
         )
     }
