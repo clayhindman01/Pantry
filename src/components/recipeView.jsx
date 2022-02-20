@@ -8,11 +8,13 @@ export default class RecipeView extends React.Component {
         super(props);
 
         this.state = {
-            recipe: this.props.recipes,
-            // recipe: this.props.recipe.title,
-            popClass: this.props.popClass,
+            id: this.props.id,
+            // recipe: this.props.recipe.title,\
+            recipes: [],
+            popClass: "popUpDivHide",
             popClassCheck: false,
-            hide: this.props.hide
+            hide: this.props.hide,
+            recipe: ""
         }
     }
 
@@ -27,15 +29,26 @@ export default class RecipeView extends React.Component {
     componentDidMount() {
         // this.setState({popClass: "popUpDivShow"})
         // console.log(this.state)
+        console.log("mounted")
+        this.setState({recipes: this.props.recipes}, function stateUpdateComplete() {
+            const recipes = this.state.recipes
+            console.log(recipes)
+            // const recipe = recipes[0].id
+            // this.setState({recipe: recipe});
+        }
+        .bind(this));  
+
     }
 
     componentDidUpdate() {
-      
+        // console.log(this.props.recipe.id)
+      console.log(this.state.popClass);
+      console.log(this.state.recipe)
     }
     onClick = (e) => {
         // console.log(e.target.value);
         e.preventDefault()
-        // console.log("hello");
+        console.log("hello");
         console.log(this.state.hide)
         console.log(this.state.popClassCheck)
         if (this.props.hide !== this.state.popClassCheck) {
@@ -65,7 +78,7 @@ export default class RecipeView extends React.Component {
         return (
             <div className={this.state.popClass}>
                 {/* <h1>Hello</h1> */}
-                <button className="submit" onClick={this.onClick}>{this.state.recipe}</button>
+                <button className="submit" onClick={this.onClick}>{this.state.recipes[0]}</button>
             </div>
         )
     }
