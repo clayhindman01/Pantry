@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import "./pantryGrab.css"
 import axios from 'axios';
-import RecipeView from './recipeView';
+import FunctionalRecipeView from './functionalRecipeView';
 import { Redirect, Link, withRouter, useNavigate } from 'react-router-dom';
 //import { Button } from 'react-bootstrap';
 // import BootstrapTable from 'react-bootstrap-table-next';
@@ -61,7 +61,7 @@ export default class pantryGrab extends Component {
     }
     handleFormSubmit = (e) => {
         e.preventDefault()
-        axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=af2bd30b44424d368d723beb5ca12fce&ingredients=${this.state.ingredientList}&number=12`)
+        axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=e13d391747324b8789ee98e104946e5d&ingredients=${this.state.ingredientList}&number=12`)
             .then(res =>
                 this.setState({ recipes: res.data })
             )
@@ -143,7 +143,7 @@ export default class pantryGrab extends Component {
                                 <button className="submit" value={item.id} onClick={this.onClick}>View</button>
                             </div>
                     ))}
-                    <RecipeView  recipe={this.state.recipes[this.state.id]} hide={this.state.popUpHide} popClass={this.state.popUpClass}/>
+                    <FunctionalRecipeView  id={this.state.id} hide={this.state.popUpHide} popClass={this.state.popUpClass}/>
                         </div>
             </div>
                 )
