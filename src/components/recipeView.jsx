@@ -25,8 +25,8 @@ export default class RecipeView extends React.Component {
     //     console.log(this.state.recipes.steps)
     // }\
     componentDidMount() {
-        this.setState({popClass: "popUpDivShow"})
-        console.log(this.state)
+        // this.setState({popClass: "popUpDivShow"})
+        // console.log(this.state)
     }
 
     componentDidUpdate() {

@@ -76,18 +76,16 @@ export default class pantryGrab extends Component {
         console.log(e.target.value);
         console.log("hello");
         this.setState({id: e.target.value})
-        if(this.state.popUpHide == false)
+        if(this.state.popUpHide == true)
         {
             this.setState({popUpClass: "popUpDivShow"})
-            this.setState({popUpHide: true})
-        }
-        else if(this.state.popUpHide == true)
-        {
-            this.setState({popUpClass: "popUpDivHide"})
             this.setState({popUpHide: false})
         }
-        
-
+        else if(this.state.popUpHide == false)
+        {
+            this.setState({popUpClass: "popUpDivHide"})
+            this.setState({popUpHide: true})
+        }
         // console.log(item);
     }
 
