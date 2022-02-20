@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import "./pantryGrab.css"
 import axios from 'axios';
-import RecipeView from './recipeView';
+import FunctionalRecipeView from './functionalRecipeView';
 import { Redirect, Link, withRouter, useNavigate } from 'react-router-dom';
 //import { Button } from 'react-bootstrap';
 // import BootstrapTable from 'react-bootstrap-table-next';
@@ -147,7 +147,7 @@ export default class pantryGrab extends Component {
                                 <button className="submit" value={item.id} onClick={this.onClick}>View</button>
                             </div>
                     ))}
-                    <RecipeView  recipes={this.state.recipes} hide={this.state.popUpHide} id={this.state.id}/>
+                    <FunctionalRecipeView  id={this.state.id} hide={this.state.popUpHide} popClass={this.state.popUpClass}/>
                         </div>
             </div>
                 )
