@@ -98,9 +98,11 @@ form {
     align-items: center;
     padding: 10px;
     border: solid 1px white;
-    width: 30%;
-    margin: 10px;
+    width: 25%;
+    margin: 20px;
     background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 5px 5px 1px rgb(219, 219, 219);
 }
 
 .innerImg {
@@ -111,12 +113,10 @@ form {
 .innerCard  {
     display: flex;
     flex-Direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    /* text-align: center; */
+    justify-content: center ;
+    align-items: center;
     padding: 10px;
-    /* border: solid 2px black; */
-    width: 90%;
+    width: 75%;
     margin: 10px;
     background-color: white;
 }

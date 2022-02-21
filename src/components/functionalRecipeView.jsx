@@ -3,6 +3,7 @@ import "./pantryGrab.css"
 
 export default function FunctionalRecipeView(props) {
 
+    //Set state for the component
     const [id, setId] = useState(props.id);
     const [popClass, setPopClass] = useState(props.popClass);
     const [popClassCheck, setPopClassCheck] = useState(props.popClassCheck);
@@ -11,8 +12,6 @@ export default function FunctionalRecipeView(props) {
     const onClick = (e) => {
         e.preventDefault();
 
-        console.log(id)
-        console.log(hide)
         if (hide !== popClassCheck) {
             if (popClassCheck == false) {
                 setHide(false);
@@ -22,16 +21,9 @@ export default function FunctionalRecipeView(props) {
                 setHide(true);
                 setPopClassCheck(false);
             }
-
             setPopClassCheck(hide)
         }
     }
-
-    console.log(props)
-
-    useEffect(() => {
-        
-    }) 
 
     return (
         <div className={props.popClass}>
