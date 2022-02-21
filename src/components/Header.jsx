@@ -63,7 +63,7 @@ export default function Header(props) {
                             <h3 className="headerLink">Home</h3>
                         </div>
                     </Link>
-                    <Link to='' className="smallLinkCont">
+                    <Link to='/savedRecipes' className="smallLinkCont">
                         <div>
                             <h3 className="headerLink">Saved Recipes</h3>
                         </div>

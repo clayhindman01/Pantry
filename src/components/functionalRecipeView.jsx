@@ -11,8 +11,6 @@ export default function FunctionalRecipeView(props) {
     const onClick = (e) => {
         e.preventDefault();
 
-        console.log(id)
-        console.log(hide)
         if (hide !== popClassCheck) {
             if (popClassCheck == false) {
                 setHide(false);
@@ -26,12 +24,6 @@ export default function FunctionalRecipeView(props) {
             setPopClassCheck(hide)
         }
     }
-
-    console.log(props)
-
-    useEffect(() => {
-        
-    }) 
 
     return (
         <div className={props.popClass}>

@@ -3,10 +3,6 @@ import "./pantryGrab.css"
 import axios from 'axios';
 import FunctionalRecipeView from './functionalRecipeView';
 import { Redirect, Link, withRouter, useNavigate } from 'react-router-dom';
-//import { Button } from 'react-bootstrap';
-// import BootstrapTable from 'react-bootstrap-table-next';
-// import paginationFactory from 'react-bootstrap-table2-paginator';
-// import * as ReactBootstrap from 'react-bootstrap';
 
 export default class pantryGrab extends Component {
     constructor(props) {
