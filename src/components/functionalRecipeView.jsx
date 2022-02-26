@@ -4,7 +4,7 @@ import "./pantryGrab.css"
 export default function FunctionalRecipeView(props) {
 
     //Set state for the component
-    const [id, setId] = useState(props.id);
+    const [id] = useState(props.id);
     const [popClass, setPopClass] = useState(props.popClass);
     const [popClassCheck, setPopClassCheck] = useState(props.popClassCheck);
     const [hide, setHide] = useState("");

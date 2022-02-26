@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import "./pantryGrab.css"
 import axios from 'axios';
 import FunctionalRecipeView from './functionalRecipeView';
-import { Redirect, Link, withRouter, useNavigate } from 'react-router-dom';
-
-var counter = 0;
 
 export default class pantryGrab extends Component {
     constructor(props) {
@@ -54,9 +51,7 @@ export default class pantryGrab extends Component {
         }
         this.setState({ ingredientList: finalIngredients })
     }
-    componentDidUpdate() {
-        // this.setState({popUpClass: "popUpDivHide"})
-    }
+
     handleFormSubmit = (e) => {
         e.preventDefault()
         axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=e13d391747324b8789ee98e104946e5d&ingredients=${this.state.ingredientList}&number=12`)
@@ -90,12 +85,6 @@ export default class pantryGrab extends Component {
     }
 
     render() {
-        // const columns = [
-        //     { dataField: "title", text: '' },
-        //     { dataField: "image", text: '' },
-        //     { dataField: "missedIngredientCount", text: '' },
-        // ]
-
         return (
             <div>
                 <div className="main-cont">
@@ -123,28 +112,28 @@ export default class pantryGrab extends Component {
                 </div>
                 <div className="pantry-container">
                     {this.state.recipes.map((item) => (
-                            <div key={item.id} className="outerCard">
-                                <div className="innerCard">
-                                    <img src={item.image} className="innerImg"></img>
-                                    <div className="textBox">
-                                        <h3>{item.title}</h3>
-                                        {/* <RecipeView id={item.id} /> */}
-                                    </div>
-                                    <div className="textBox">
-                                        <p className="pText">Missing Ingredients: {item.missedIngredientCount} {item.missedIngredients.map(ingredient => {
-                                            return (
-                                                <div className="textBox">
-                                                    <p>{ingredient.name}</p>
-                                                </div>
-                                            )
-                                        })}</p>
-                                    </div>
+                        <div key={item.id} className="outerCard">
+                            <div className="innerCard">
+                                <img src={item.image} className="innerImg"></img>
+                                <div className="textBox">
+                                    <h3>{item.title}</h3>
+                                    {/* <RecipeView id={item.id} /> */}
                                 </div>
-                                <button className="submit" value={item.id} onClick={this.onClick}>View</button>
+                                <div className="textBox">
+                                    <p className="pText">Missing Ingredients: {item.missedIngredientCount} {item.missedIngredients.map(ingredient => {
+                                        return (
+                                            <div className="textBox">
+                                                <p>{ingredient.name}</p>
+                                            </div>
+                                        )
+                                    })}</p>
+                                </div>
                             </div>
+                            <button className="submit" value={item.id} onClick={this.onClick}>View</button>
+                        </div>
                     ))}
                     <FunctionalRecipeView  id={this.state.id} hide={this.state.popUpHide} popClass={this.state.popUpClass}/>
-                        </div>
+                </div>
             </div>
                 )
     }
