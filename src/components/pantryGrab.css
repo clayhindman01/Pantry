@@ -1,6 +1,7 @@
 .main-cont {
     display: flex;
     justify-content: center;
+    height: 90%;
 }
 
 ul {
@@ -25,7 +26,8 @@ ul {
     align-items: center;
     background-color: #F1F1F1;
     margin: 30px 0px 0px 0px;
-    width: 100%;
+    border: 1px solid grey;
+    width: 99%;
 }
 
 .list-holder {

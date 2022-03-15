@@ -27,6 +27,7 @@ export default function FunctionalRecipeView(props) {
 
     return (
         <div className={props.popClass}>
+            <p>Does this work?</p>
             <button className='submit' onClick={onClick}>{props.id}</button>
         </div>
     )
